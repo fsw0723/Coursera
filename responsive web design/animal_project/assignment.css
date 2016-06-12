@@ -1,0 +1,27 @@
+/* put your css code here */
+
+.tab-content {
+    margin: 20px;
+}
+
+.crop-img{
+        height: 150px;
+        max-width: 300px;
+}
+
+.carousel-inner {
+    height: 300px;
+}
+
+.carousel-inner > .item > img{
+    margin: auto;
+    padding: 10px;
+    height: 100%;
+    max-width:100%;
+}
+
+.large-img {
+    height: 200px;
+    max-width: 400px;
+    margin: 20px;
+}
