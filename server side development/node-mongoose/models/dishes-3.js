@@ -1,7 +1,8 @@
 var mongoose = require("mongoose");
 var Schema = mongoose.Schema;
 
-
+require('mongoose-currency').loadType(mongoose);
+var Currency = mongoose.Types.Currency;
 
 var commentSchema = new Schema({
 	rating: {
@@ -27,6 +28,22 @@ var dishSchema = new Schema({
 		type: String,
 		required: true,
 		unique: true
+	},
+	image: {
+		type: String,
+		required: true
+	},
+	category: {
+		type: String,
+		required: true
+	},
+	label: {
+		type: String,
+		default: ""
+	},
+	price: {
+		type: Number,
+		required: true
 	},
 	description: {
 		type: String,
