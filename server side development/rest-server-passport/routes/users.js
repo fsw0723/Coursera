@@ -5,26 +5,24 @@ var User = require('../models/user');
 var Verify    = require('./verify');
 
 /* GET users listing. */
-router.get('/', function(req, res, next) {
-  res.send('respond with a resource');
+router.get('/', Verify.verifyOrdinaryUser, Verify.verifyAdmin, function(req, res, next) {
+  User.find({}, function (err, user) {
+    if (err) throw err;
+    return res.json(user);
+  });
 });
 
 router.post('/register', function(req, res) {
-    User.register(new User({ username : req.body.username }),
-      req.body.password, function(err, user) {
-        if (err) {
-            return res.status(500).json({err: err});
-        }
-        passport.authenticate('local')(req, res, function () {
-            return res.status(200).json({status: 'Registration Successful!'});
-        });
-    });
+  User.register(new User({ username : req.body.username }),
+    req.body.password, function(err, user) {
+      if (err) {
+          return res.status(500).json({err: err});
+      }
+      passport.authenticate('local')(req, res, function () {
+          return res.status(200).json({status: 'Registration Successful!'});
+      });
+  });
 });
-
-router.get('/login', function(req, res, next) {
-	  res.send('lalala');
-
-	});
 
 router.post('/login', function(req, res, next) {
   passport.authenticate('local', function(err, user, info) {

@@ -4,7 +4,7 @@ var config = require("../config.js");
 
 exports.getToken = function(user){
 	return jwt.sign(user, config.secretKey, {
-		expiresIn: 60
+		expiresIn: 120
 	});
 };
 
@@ -23,6 +23,16 @@ exports.verifyOrdinaryUser = function(req, res, next){
 		})
 	} else {
 		var err = new Error("No token provided!");
+		err.status = 403;
+		return next(err);
+	}
+}
+
+exports.verifyAdmin = function(req, res, next){
+	if(req.decoded._doc.admin){
+		next();
+	} else {
+		var err = new Error("You are not authorized to perform this operation!");
 		err.status = 403;
 		return next(err);
 	}
