@@ -22,7 +22,7 @@ favouriteRouter.route('/')
 })
 
 .post(Verify.verifyOrdinaryUser, function (req, res, next) {
-    Favourites.find({"postedBy": new ObjectId(req.decoded._doc._id)}, function(err, favourites){
+    Favourites.find({"postedBy": new ObjectId(req.decoded._id)}, function(err, favourites){
         if(err) throw err;
         if(favourites.length > 0){
             var favourite = favourites[0];
@@ -33,7 +33,7 @@ favouriteRouter.route('/')
                 res.json(favourite);
             });
         } else {
-            req.body.postedBy = req.decoded._doc._id;
+            req.body.postedBy = req.decoded._id;
             req.body.dishes = [new ObjectId(req.body.dishId)];
             Favourites.create(req.body, function (err, favourite) {
                 if (err) throw err;
@@ -46,7 +46,7 @@ favouriteRouter.route('/')
     });
 })
 .delete(Verify.verifyOrdinaryUser, function(req, res, next){
-    Favourites.find({"postedBy": new ObjectId(req.decoded._doc._id)}).remove(function(err, resp){
+    Favourites.find({"postedBy": new ObjectId(req.decoded._id)}).remove(function(err, resp){
         if(err) throw err;
         res.json(resp);
     });
@@ -56,7 +56,7 @@ favouriteRouter.route("/:dishId")
 .all(Verify.verifyOrdinaryUser)
 .delete(function(req, res, next){
     console.log("delete");
-    Favourites.find({"postedBy": new ObjectId(req.decoded._doc._id)}, function(err, favourites){
+    Favourites.find({"postedBy": new ObjectId(req.decoded._id)}, function(err, favourites){
         if(err) throw err;
         if(favourites.length > 0){
             var favourite = favourites[0];
