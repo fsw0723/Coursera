@@ -1,0 +1,17 @@
+<table>
+  <tr>
+    <th>Thumbnail</th>
+    <th>Title</th>
+    <th>Social rank</th>
+  </tr>
+
+  <% @recipes.each do |recipe| %>
+  <tr>
+    <td><a href="<%= recipe["f2f_url"] %>" target="_blank"><img src="<%= recipe["image_url"] %>" width="100" height="100"></a></td>
+    <td><a href="<%= recipe["f2f_url"] %>" target="_blank"><%= sanitize recipe["title"] %></a></td>
+    <td><%= recipe["social_rank"] %></td>
+  </tr>
+  <% end %>
+</table>
+
+<p>Powered By Food2Fork.com</p>
